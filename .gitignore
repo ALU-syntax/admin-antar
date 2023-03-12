@@ -2,7 +2,7 @@
 .DS_store
 
 # Ignore Database
-application\config\database.php
+application/config/database.php
 
 # Ignore Config
-application\config\config.php
+application/config/config.php

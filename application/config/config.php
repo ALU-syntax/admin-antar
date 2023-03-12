@@ -23,8 +23,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://antar.shop//';
-// $config['base_url'] = 'http://192.168.64.2/admin-antar/';
+// $config['base_url'] = 'https://antar.shop//';
+$config['base_url'] = 'http://192.168.64.2/admin-antar/';
 
 define('mapboxToken', 'pk.eyJ1IjoiamFiYXJqZWsiLCJhIjoiY2tpM2d6ejYzMDFrOTJ6cGdtanQwYjc2YSJ9.xV0HZmHGJjVLPN-oz0bOiw');
 
