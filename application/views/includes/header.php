@@ -9,9 +9,9 @@
     <meta name="description" content="Sigap - Aplikasi mulit layanan ojek online">
     <meta name="keywords" content="Gojek clone, grab clone">
     <meta name="author" content="Sigap">
-    <title>BUMDesKU Admin</title>
+    <title>Antar Admin</title>
     <!-- plugins:css -->
-    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url(); ?>asset/app-assets/images/ico/logoweb.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url(); ?>asset/app-assets/images/logo/login_antar.jpeg">
     <link href="<?= base_url(); ?>asset/app-assets/css/ourdevelops/font.css" rel="stylesheet">
     <!-- endinject -->
 
@@ -59,7 +59,7 @@
     <link rel="stylesheet" href="<?= base_url(); ?>asset/assets/css/style.css">
 
     <!-- endinject -->
-    <link rel="shortcut icon" href="<?= base_url(); ?>asset/images/logo.png" />
+    <link rel="shortcut icon" href="<?= base_url(); ?>asset/app-assets/images/logo/login_antar.png" />
 
 </head>
 
@@ -98,8 +98,8 @@
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="<?= base_url(); ?>">
-                        <span><img class="round" src="<?= base_url(); ?>asset/app-assets/images/logo/logoweb.png" alt="avatar" height="40" width="40"></span>
-                        <h2 class="brand-text mb-0">BUMDesKU</h2>
+                        <span><img class="round" src="<?= base_url(); ?>asset/app-assets/images/logo/login_antar.png" alt="avatar" height="40" width="40"></span>
+                        <h2 class="brand-text mb-0">Antar</h2>
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
             </ul>

@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Multi Service App With Customer App, Driver App, Merchant App and Admin Panel">
-    <title>BUMDesKU</title>
+    <title>Antar</title>
     <meta name="keywords" content="car rental, codeigniter, delivery, driver, grab, maps tracking, ordering, package, ride, send, stripe, taxi, transportation, uber, wallet">
     <meta name="author" content="MOJEK">
 
@@ -31,8 +31,8 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>asset/app-assets/css/pages/authentication.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>asset/app-assets/css/plugins/extensions/toastr.css">
     <!-- END: Page CSS-->
-
-    <link rel="shortcut icon" href="<?= base_url(); ?>asset/images/logo.png" />
+    <link rel="shortcut icon" href="<?= base_url(); ?>asset/app-assets/images/logo/login_antar.png" />
+    
 </head>
 
 <body class="horizontal-layout horizontal-menu 1-column  navbar-floating footer-static bg-full-screen-image  blank-page blank-page" data-open="hover" data-menu="horizontal-menu" data-col="1-column">
@@ -70,7 +70,7 @@
                         <div class="card bg-authentication rounded-0 mb-0">
                             <div class="row m-0">
                                 <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
-                                    <img src="<?= base_url(); ?>asset/app-assets/images/logo/login.png" alt="branding logo">
+                                    <img src="<?= base_url(); ?>asset/app-assets/images/logo/login_antar.png" alt="branding logo">
                                 </div>
                                 <div class="col-lg-6 col-12 p-0">
                                     <div class="card rounded-0 mb-0 px-2">
