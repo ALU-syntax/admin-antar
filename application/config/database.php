@@ -76,9 +76,9 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'u482286026_adminantar',
-	'password' => 'p^Iz!B=3Xi',
-	'database' => 'u482286026_admin_antar',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'bumdes',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
