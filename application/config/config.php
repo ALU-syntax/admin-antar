@@ -28,7 +28,9 @@ $config['base_url'] = 'http://192.168.64.2/admin-antar/';
 
 define('mapboxToken', 'pk.eyJ1IjoiamFiYXJqZWsiLCJhIjoiY2tpM2d6ejYzMDFrOTJ6cGdtanQwYjc2YSJ9.xV0HZmHGJjVLPN-oz0bOiw');
 
-define('firebaseDb', 'https://bumdesku-4fa0a-default-rtdb.firebaseio.com/');
+// define('firebaseDb', 'https://bumdesku-4fa0a-default-rtdb.firebaseio.com/');
+define('firebaseDb', 'https://antar-dc91d-default-rtdb.asia-southeast1.firebasedatabase.app/');
+
 define('keyfcm', 'AAAAPYZe0Ls:APA91bGEWMK_KX2AtXXLj4BKufz9Upgo73IAouHg_UvOjkKsgOrluoa729Vodkz35Z6VSfp8lpzMP9GfoD9eSnVKxqZxKmTR0HFJSeNjR5tiVN2GZzS1651ixm9er28aO6OzDx57gmN_');
 
 // define('google_maps_api', 'AIzaSyBqGkPTq9VmFdiCFUahr1UPKrGkRI79sFM');

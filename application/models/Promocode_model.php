@@ -149,6 +149,11 @@ FROM pelanggan LEFT JOIN saldo ON saldo.id_user = pelanggan.id WHERE pelanggan.i
         return  $this->db->get('kodepromo')->result_array();
     }
 
+    public function getAllVoucherPromo(){
+        $this->db->join('fitur', 'voucher_promo.fitur = fitur.id_fitur', 'left');
+        return  $this->db->get('voucher_promo')->result_array();
+    }
+
     public function getpromocodebyid($id)
     {
         return $this->db->get_where('kodepromo', ['id_promo' => $id])->row_array();
@@ -160,9 +165,20 @@ FROM pelanggan LEFT JOIN saldo ON saldo.id_user = pelanggan.id WHERE pelanggan.i
         $this->db->delete('kodepromo');
     }
 
+    public function hapusVoucherPromoCodeById($id)
+    {
+        $this->db->where('id_voucher_promo', $id);
+        $this->db->delete('voucher_promo');
+    }
+
     public function addpromocode($data)
     {
         return $this->db->insert('kodepromo', $data);
+    }
+
+    public function addVoucherPromoCode($data)
+    {
+        return $this->db->insert('voucher_promo', $data);
     }
 
     public function cekpromo($code)
@@ -171,6 +187,22 @@ FROM pelanggan LEFT JOIN saldo ON saldo.id_user = pelanggan.id WHERE pelanggan.i
         $this->db->from('kodepromo');
         $this->db->where('kode_promo',$code);
         return $this->db->get(); 
+    }
+
+    public function cekVoucherPromo($code)
+    {
+        $this->db->select('*');
+        $this->db->from('voucher_promo');
+        $this->db->where('kode_voucher_promo',$code);
+        return $this->db->get(); 
+    }
+
+    public function getVoucherPromoById($id)
+    {
+        $this->db->select('*');
+        $this->db->from('voucher_promo');
+        $this->db->where('id_voucher_promo', $id);
+        return $this->db->get();
     }
 
     public function getpromobyid($id)
@@ -185,6 +217,11 @@ FROM pelanggan LEFT JOIN saldo ON saldo.id_user = pelanggan.id WHERE pelanggan.i
     {
         $this->db->where('id_promo', $data['id_promo']);
         return $this->db->update('kodepromo', $data);
+    }
+
+    public function editVoucherPromoCode($data){
+        $this->db->where('id_voucher_promo', $data['id_voucher_promo']);
+        return $this->db->update('voucher_promo', $data);
     }
     
     public function updaterefcharge($jumlah)

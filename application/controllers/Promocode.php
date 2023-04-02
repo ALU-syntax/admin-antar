@@ -39,11 +39,24 @@ class Promocode extends CI_Controller
     public function index()
     {
         $getview['view'] = 'sliderdata';
+        
         $this->CekSuper();
         $data['promocode'] = $this->promocode->getallpromocode();
 
         $this->load->view('includes/header');
         $this->load->view('promocode/index',$data);
+        $this->load->view('includes/footer', $getview);
+        // $this->load->view('includes/footer');
+    }
+
+    public function voucher_promo()
+    {
+        $getview['view'] = 'sliderdata';
+        $this->CekSuper();
+        $data['promocode'] = $this->promocode->getAllVoucherPromo();
+
+        $this->load->view('includes/header');
+        $this->load->view('promocode/voucher_promo',$data);
         $this->load->view('includes/footer', $getview);
     }
     
@@ -168,11 +181,70 @@ class Promocode extends CI_Controller
         echo json_encode($response);
     }
     
+    public function addVoucherPromo(){
+        $getview['view'] = 'addpromotioncode';
+        $this->form_validation->set_rules('nama_voucher_promo', 'nama_voucher_promo', 'trim|prep_for_form');
+        $this->form_validation->set_rules('kode__voucher_promo', 'kode_voucher_promo', 'trim|prep_for_form');
+        $this->form_validation->set_rules('nominal_voucher_promo', 'nominal_voucher_promo', 'trim|prep_for_form');
+        $this->form_validation->set_rules('type_voucher_promo', 'type_voucher_promo', 'trim|prep_for_form');
+        $this->form_validation->set_rules('fitur', 'fitur', 'trim|prep_for_form');
+        $this->form_validation->set_rules('status', 'status', 'trim|prep_for_form');
+
+        if ($this->form_validation->run() == TRUE) {
+            $config['upload_path']     = './images/promo/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size']         = '10000';
+            $config['file_name']     = 'name';
+            $config['encrypt_name']     = true;
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('image_voucher_promo')) {
+                $gambar = html_escape($this->upload->data('file_name'));
+            } else {
+                $gambar = 'noimage.jpg';
+            }
+
+            if ($this->input->post('type_voucher_promo') == 'persen'){
+                $nominal = html_escape($this->input->post('nominal_voucher_promo_persen', TRUE));
+            } else {
+                $nominal = str_replace(".","",html_escape($this->input->post('nominal_voucher_promo', TRUE)));
+            }
+
+            $data             = [
+            'image_voucher_promo'                       => $gambar,
+                'nama_voucher_promo'              => html_escape($this->input->post('nama_voucher_promo', TRUE)),
+                'kode_voucher_promo'              => html_escape($this->input->post('kode_voucher_promo', TRUE)),
+                'nominal_voucher_promo'              => $nominal,
+                'type_voucher_promo'              => html_escape($this->input->post('type_voucher_promo', TRUE)),
+                'expired'              => html_escape($this->input->post('expired', TRUE)),
+                'fitur'                  => html_escape($this->input->post('fitur', TRUE)),
+                'status'                       => html_escape($this->input->post('status', TRUE)),
+            ];
+            if (demo == TRUE) {
+                $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
+                redirect('promocode/addvoucherpromo');
+            } else {
+                $cekpromo = $this->promocode->cekVoucherPromo($this->input->post('kode_voucher_promo'));
+                if ($cekpromo->num_rows() > 0){
+
+                    $this->session->set_flashdata('demo', 'Promotion code already exist');
+                    redirect('promocode/addvoucherpromo');
+                }else{
+                $this->promocode->addVoucherPromoCode($data);
+                $this->session->set_flashdata('tambah', 'Promotion Slider Has Been Added');
+                redirect('promocode');
+            }
+            }
+        } else {
+            $data['fitur'] = $this->fitur->getallservice();
+            $this->load->view('includes/header');
+            $this->load->view('promocode/addvoucherpromo', $data);
+            $this->load->view('includes/footer', $getview);
+        }
+    }
 
     public function addpromocode()
-
     {
-        
         $getview['view'] = 'addpromotioncode';
         $this->form_validation->set_rules('nama_promo', 'nama_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('kode_promo', 'kode_promo', 'trim|prep_for_form');
@@ -230,6 +302,84 @@ class Promocode extends CI_Controller
             $data['fitur'] = $this->fitur->getallservice();
             $this->load->view('includes/header');
             $this->load->view('promocode/addpromocode', $data);
+            $this->load->view('includes/footer', $getview);
+        }
+    }
+
+    public function editVoucherPromoCode($id)
+    {
+        $getview['view'] = 'addpromotioncode';
+        $this->form_validation->set_rules('nama_voucher_promo', 'nama_voucher_promo', 'trim|prep_for_form');
+        $this->form_validation->set_rules('kode_voucher_promo', 'kode_voucher_promo', 'trim|prep_for_form');
+        $this->form_validation->set_rules('nominal_voucher_promo', 'nominal_voucher_promo', 'trim|prep_for_form');
+        $this->form_validation->set_rules('type_voucher_promo', 'type_voucher_promo', 'trim|prep_for_form');
+        $this->form_validation->set_rules('fitur', 'fitur', 'trim|prep_for_form');
+        $this->form_validation->set_rules('status', 'status', 'trim|prep_for_form');
+        $data['promo'] = $this->promocode->getVoucherPromoById()($id)->row_array();
+        $data['fitur'] = $this->fitur->getallservice();
+        
+        if ($this->form_validation->run() == TRUE) {
+            if ($this->input->post('type_voucher_promo') == 'persen'){
+                $nominal = html_escape($this->input->post('nominal_voucher_promo_persen', TRUE));
+            } else {
+                $nominal = str_replace(".","",html_escape($this->input->post('nominal_voucher_promo', TRUE)));
+            }
+
+            $config['upload_path']     = './images/promo/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size']         = '10000';
+            $config['file_name']     = time();
+            $config['encrypt_name']     = true;
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('image_voucher_promo')) {
+                unlink('images/promo/' . $this->promocode->getVoucherPromoById()($id)->row('image_voucher_promo'));
+                $gambar = html_escape($this->upload->data('file_name'));
+                $datainsert             = [
+                    'id_voucher_promo'                  => html_escape($this->input->post('id_voucher_promo', TRUE)),
+                    'image_voucher_promo'                       => $gambar,
+                    'nama_voucher_promo'              => html_escape($this->input->post('nama_voucherpromo', TRUE)),
+                    'kode_voucher_promo'              => html_escape($this->input->post('kode_voucher_promo', TRUE)),
+                    'nominal_voucher_promo'              => $nominal,
+                    'type_voucher_promo'              => html_escape($this->input->post('type_voucher_promo', TRUE)),
+                    'expired'              => html_escape($this->input->post('expired', TRUE)),
+                    'fitur'                  => html_escape($this->input->post('fitur', TRUE)),
+                    'status'                       => html_escape($this->input->post('status', TRUE)),
+                ];
+            } else {
+                $datainsert             = [
+                    'id_voucher_promo'                  => html_escape($this->input->post('id_voucher_promo', TRUE)),
+                    'nama_voucher_promo'              => html_escape($this->input->post('nama_voucher_promo', TRUE)),
+                    'kode_voucher_promo'              => html_escape($this->input->post('kode_voucher_promo', TRUE)),
+                    'nominal_voucher_promo'              => $nominal,
+                    'type_voucher_promo'              => html_escape($this->input->post('type_voucher_promo', TRUE)),
+                    'expired'              => html_escape($this->input->post('expired', TRUE)),
+                    'fitur'                  => html_escape($this->input->post('fitur', TRUE)),
+                    'status'                       => html_escape($this->input->post('status', TRUE)),
+                ];
+            }
+
+            if (demo == TRUE) {
+                $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
+                $this->load->view('includes/header');
+                $this->load->view('promocode/editvoucherpromocode', $data);
+                $this->load->view('includes/footer',$getview);
+            } else {
+                $cekpromo = $this->promocode->cekVoucherPromo()($this->input->post('kode_voucher_promo'));
+                if ($cekpromo->num_rows() > 0 && $cekpromo->row_array()['id_voucher_promo'] != $this->input->post('id_voucher_promo')){
+                    $this->session->set_flashdata('demo', 'Promotion code already exist');
+                    $this->load->view('includes/header');
+                    $this->load->view('promocode/editvoucherpromocode', $data);
+                    $this->load->view('includes/footer',$getview);
+                }else{
+                $this->promocode->editVoucherPromoCode($datainsert);
+                $this->session->set_flashdata('tambah', 'Promotion code Has Been Changed');
+                redirect('promocode');
+            }
+            }
+        } else {
+            $this->load->view('includes/header');
+            $this->load->view('promocode/editvoucherpromocode', $data);
             $this->load->view('includes/footer', $getview);
         }
     }
@@ -333,6 +483,27 @@ class Promocode extends CI_Controller
             }
 
             $this->promocode->hapuspromocodeById($id);
+            $this->session->set_flashdata('hapus', 'Promo Code Has Been deleted');
+            redirect('promocode');
+        }
+    }
+
+    public function hapusVoucherPromo($id)
+    {
+        $this->CekSuper();
+
+        if (demo == TRUE) {
+            $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
+            redirect('promocode/index');
+        } else {
+            $data = $this->promocode->getVoucherPromoById($id);
+
+            if ($data['image_voucher_promo'] != 'noimage.jpg') {
+                $gambar = $data['image_voucher_promo'];
+                unlink('images/promo/' . $gambar);
+            }
+
+            $this->promocode->hapusVoucherPromoCodeById($id);
             $this->session->set_flashdata('hapus', 'Promo Code Has Been deleted');
             redirect('promocode');
         }

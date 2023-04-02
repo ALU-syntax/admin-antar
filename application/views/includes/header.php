@@ -171,6 +171,7 @@
                     <ul class="menu-content">
                         <li><a href="<?= base_url(); ?>promoslider"><i class="feather icon-circle text-success"></i><span class="menu-item" data-i18n="Basic">Slider</span></a></li>
                         <li><a href="<?= base_url(); ?>promocode"><i class="feather icon-circle text-success"></i><span class="menu-item" data-i18n="Basic">Kode Promo</span></a></li>
+                        <li><a href="<?= base_url(); ?>promocode/voucher_promo"><i class="feather icon-circle text-success"></i><span class="menu-item" data-i18n="Basic">Voucher Promo</span></a></li>
                         <li><a href="<?= base_url(); ?>promocode/customer_promo_index"><i class="feather icon-circle text-success"></i><span class="menu-item" data-i18n="Basic">Free Topup </span></a></li>
                         
                         <li><a href="<?= base_url(); ?>promocode/topup_referal_index"><i class="feather icon-circle text-success"></i><span class="menu-item" data-i18n="Basic">Topup Referal </span></a></li>
