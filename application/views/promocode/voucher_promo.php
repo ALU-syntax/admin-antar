@@ -31,8 +31,9 @@
                                 <th></th>
                                 <th>No</th>
                                 <th>Gambar</th>
-                                <th>Judul</th>
-                                <th>Kode Promo</th>
+                                <th>Nama Voucher</th>
+                                <th>Stock Voucher Promo</th>
+                                <th>Minimum Transaksi</th>
                                 <th>Diskon</th>
                                 <th>Layanan</th>
                                 <th>Expired</th>
@@ -47,10 +48,11 @@
                                     <td></td>
                                     <td><?= $i ?></td>
                                     <td class="product-img">
-                                        <img src="<?= base_url('images/promo/') . $prc['image_promo']; ?>">
+                                        <img src="<?= base_url('images/promo/') . $prc['image_voucher_promo']; ?>">
                                     </td>
                                     <td class="product-name"><?= $prc['nama_voucher_promo']; ?></td>
-                                    <td class="text-primary"><?= $prc['kode_voucher_promo']; ?></td>
+                                    <td class="product-name"><?= $prc['isi_voucher_promo']; ?></td>
+                                    <td class="product-name"><?= $prc['minimum_transaksi']; ?></td>
 
                                     <?php if ($prc['type_voucher_promo'] == 'persen') { ?>
                                         <td class="text-danger"><?= $prc['nominal_voucher_promo']; ?>%</td>

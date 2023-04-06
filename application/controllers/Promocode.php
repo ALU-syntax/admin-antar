@@ -184,7 +184,8 @@ class Promocode extends CI_Controller
     public function addVoucherPromo(){
         $getview['view'] = 'addpromotioncode';
         $this->form_validation->set_rules('nama_voucher_promo', 'nama_voucher_promo', 'trim|prep_for_form');
-        $this->form_validation->set_rules('kode__voucher_promo', 'kode_voucher_promo', 'trim|prep_for_form');
+        $this->form_validation->set_rules('minimum_transaksi', 'minimum_transaksi', 'trim|prep_for_form');
+        $this->form_validation->set_rules('isi_voucher_promo', 'isi_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('nominal_voucher_promo', 'nominal_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('type_voucher_promo', 'type_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('fitur', 'fitur', 'trim|prep_for_form');
@@ -213,7 +214,8 @@ class Promocode extends CI_Controller
             $data             = [
             'image_voucher_promo'                       => $gambar,
                 'nama_voucher_promo'              => html_escape($this->input->post('nama_voucher_promo', TRUE)),
-                'kode_voucher_promo'              => html_escape($this->input->post('kode_voucher_promo', TRUE)),
+                'minimum_transaksi'              => html_escape($this->input->post('minimum_transaksi', TRUE)),
+                'isi_voucher_promo'              => html_escape($this->input->post('isi_voucher_promo', TRUE)),
                 'nominal_voucher_promo'              => $nominal,
                 'type_voucher_promo'              => html_escape($this->input->post('type_voucher_promo', TRUE)),
                 'expired'              => html_escape($this->input->post('expired', TRUE)),
@@ -224,10 +226,10 @@ class Promocode extends CI_Controller
                 $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
                 redirect('promocode/addvoucherpromo');
             } else {
-                $cekpromo = $this->promocode->cekVoucherPromo($this->input->post('kode_voucher_promo'));
+                $cekpromo = $this->promocode->getVoucherPromoByName($this->input->post('nama_voucher_promo'));
                 if ($cekpromo->num_rows() > 0){
 
-                    $this->session->set_flashdata('demo', 'Promotion code already exist');
+                    $this->session->set_flashdata('demo', 'Voucher Promo already exist');
                     redirect('promocode/addvoucherpromo');
                 }else{
                 $this->promocode->addVoucherPromoCode($data);
@@ -310,12 +312,13 @@ class Promocode extends CI_Controller
     {
         $getview['view'] = 'addpromotioncode';
         $this->form_validation->set_rules('nama_voucher_promo', 'nama_voucher_promo', 'trim|prep_for_form');
-        $this->form_validation->set_rules('kode_voucher_promo', 'kode_voucher_promo', 'trim|prep_for_form');
+        $this->form_validation->set_rules('minimum_transaksi', 'minimum_transaksi', 'trim|prep_for_form');
         $this->form_validation->set_rules('nominal_voucher_promo', 'nominal_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('type_voucher_promo', 'type_voucher_promo', 'trim|prep_for_form');
+        $this->form_validation->set_rules('isi_voucher_promo', 'isi_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('fitur', 'fitur', 'trim|prep_for_form');
         $this->form_validation->set_rules('status', 'status', 'trim|prep_for_form');
-        $data['promo'] = $this->promocode->getVoucherPromoById()($id)->row_array();
+        $data['promo'] = $this->promocode->getVoucherPromoById($id)->row_array();
         $data['fitur'] = $this->fitur->getallservice();
         
         if ($this->form_validation->run() == TRUE) {
@@ -333,13 +336,15 @@ class Promocode extends CI_Controller
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('image_voucher_promo')) {
+                echo("<script>console.log('PHP: image if call');</script>");
                 unlink('images/promo/' . $this->promocode->getVoucherPromoById()($id)->row('image_voucher_promo'));
                 $gambar = html_escape($this->upload->data('file_name'));
                 $datainsert             = [
                     'id_voucher_promo'                  => html_escape($this->input->post('id_voucher_promo', TRUE)),
                     'image_voucher_promo'                       => $gambar,
-                    'nama_voucher_promo'              => html_escape($this->input->post('nama_voucherpromo', TRUE)),
-                    'kode_voucher_promo'              => html_escape($this->input->post('kode_voucher_promo', TRUE)),
+                    'nama_voucher_promo'              => html_escape($this->input->post('nama_voucher_promo', TRUE)),
+                    'minimum_transaksi'              => html_escape($this->input->post('minimum_transaksi', TRUE)),
+                    'isi_voucher_promo'              => html_escape($this->input->post('isi_voucher_promo', TRUE)),
                     'nominal_voucher_promo'              => $nominal,
                     'type_voucher_promo'              => html_escape($this->input->post('type_voucher_promo', TRUE)),
                     'expired'              => html_escape($this->input->post('expired', TRUE)),
@@ -347,10 +352,12 @@ class Promocode extends CI_Controller
                     'status'                       => html_escape($this->input->post('status', TRUE)),
                 ];
             } else {
+                echo("<script>console.log('PHP: image else call');</script>");
                 $datainsert             = [
                     'id_voucher_promo'                  => html_escape($this->input->post('id_voucher_promo', TRUE)),
                     'nama_voucher_promo'              => html_escape($this->input->post('nama_voucher_promo', TRUE)),
-                    'kode_voucher_promo'              => html_escape($this->input->post('kode_voucher_promo', TRUE)),
+                    'minimum_transaksi'              => html_escape($this->input->post('minimum_transaksi', TRUE)),
+                    'isi_voucher_promo'              => html_escape($this->input->post('isi_voucher_promo', TRUE)),
                     'nominal_voucher_promo'              => $nominal,
                     'type_voucher_promo'              => html_escape($this->input->post('type_voucher_promo', TRUE)),
                     'expired'              => html_escape($this->input->post('expired', TRUE)),
@@ -365,9 +372,15 @@ class Promocode extends CI_Controller
                 $this->load->view('promocode/editvoucherpromocode', $data);
                 $this->load->view('includes/footer',$getview);
             } else {
-                $cekpromo = $this->promocode->cekVoucherPromo()($this->input->post('kode_voucher_promo'));
+                // $cekpromo = $this->promocode->cekVoucherPromo($this->input->post('kode_voucher_promo'));
+                $cekpromo = $this->promocode->getVoucherPromoByName($this->input->post('nama_voucher_promo'));
+                echo("<script>console.log('PHP: {$cekpromo->row_array()['id_voucher_promo']} ');</script>");
+                echo("<script>console.log('PHP: {$this->input->post('id_voucher_promo')} ');</script>");
+
+                // $this->debug_to_console("debugCekPromo: " + $this->promocode->getVoucherPromoByName($this->input->post('nama_voucher_promo')));
+                // if ($cekpromo->num_rows() > 0 && $cekpromo->row_array()['id_voucher_promo'] != $this->input->post('id_voucher_promo'))
                 if ($cekpromo->num_rows() > 0 && $cekpromo->row_array()['id_voucher_promo'] != $this->input->post('id_voucher_promo')){
-                    $this->session->set_flashdata('demo', 'Promotion code already exist');
+                    $this->session->set_flashdata('demo', 'Edit Voucher Promo already exist');
                     $this->load->view('includes/header');
                     $this->load->view('promocode/editvoucherpromocode', $data);
                     $this->load->view('includes/footer',$getview);
@@ -412,6 +425,7 @@ class Promocode extends CI_Controller
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('image_promo')) {
+                echo("<script>console.log('PHP: image if call');</script>");
                 unlink('images/promo/' . $this->promocode->getpromobyid($id)->row('image_promo'));
                 $gambar = html_escape($this->upload->data('file_name'));
                 $datainsert             = [
@@ -426,6 +440,7 @@ class Promocode extends CI_Controller
                     'status'                       => html_escape($this->input->post('status', TRUE)),
                 ];
             } else {
+
                 $datainsert             = [
                     'id_promo'                  => html_escape($this->input->post('id_promo', TRUE)),
                     'nama_promo'              => html_escape($this->input->post('nama_promo', TRUE)),
@@ -438,9 +453,6 @@ class Promocode extends CI_Controller
                 ];
             }
 
-            
-
-            
             if (demo == TRUE) {
                 $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
                 $this->load->view('includes/header');
@@ -448,6 +460,8 @@ class Promocode extends CI_Controller
                 $this->load->view('includes/footer',$getview);
             } else {
                 $cekpromo = $this->promocode->cekpromo($this->input->post('kode_promo'));
+                echo("<script>console.log('PHP: {$cekpromo->row_array()['id_promo']} ');</script>");
+                echo("<script>console.log('PHP: {$this->input->post('id_promo')} ');</script>");
                 if ($cekpromo->num_rows() > 0 && $cekpromo->row_array()['id_promo'] != $this->input->post('id_promo')){
                     $this->session->set_flashdata('demo', 'Promotion code already exist');
                     $this->load->view('includes/header');
@@ -496,7 +510,7 @@ class Promocode extends CI_Controller
             $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
             redirect('promocode/index');
         } else {
-            $data = $this->promocode->getVoucherPromoById($id);
+            $data = $this->promocode->getVoucherPromoCodeById($id);
 
             if ($data['image_voucher_promo'] != 'noimage.jpg') {
                 $gambar = $data['image_voucher_promo'];
@@ -504,7 +518,7 @@ class Promocode extends CI_Controller
             }
 
             $this->promocode->hapusVoucherPromoCodeById($id);
-            $this->session->set_flashdata('hapus', 'Promo Code Has Been deleted');
+            $this->session->set_flashdata('hapus', 'Voucher Promo Code Has Been deleted');
             redirect('promocode');
         }
     }
@@ -542,7 +556,5 @@ class Promocode extends CI_Controller
         echo json_encode($response);
         
     }
-    
-    
     
 }

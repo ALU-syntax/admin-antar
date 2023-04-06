@@ -43,10 +43,17 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="col-12 ">
+                                                    <div class="form-group">
+                                                        <label for="promocode">Isi Voucher Promo</label>
+                                                        <input type="text" class="form-control" id="isi_voucher_promo" name="isi_voucher_promo" placeholder="masukan jumlah isi voucher promo" required>
+                                                    </div>
+                                                </div>
+
                                                 <div class="col-12 form-group">
                                                     <div class="form-group">
-                                                        <label for="promocode">Kode Promo</label>
-                                                        <input type="text" class="form-control" id="kode_voucher_promo" name="kode_voucher_promo" placeholder="masukan kode promo" required>
+                                                        <label for="promocode">Minimum Transaksi</label>
+                                                        <input type="text" class="form-control" id="minimum_transaksi" name="minimum_transaksi" placeholder="masukan kode promo" required>
                                                     </div>
                                                 </div>
 

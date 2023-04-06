@@ -11,7 +11,7 @@
                     <div class="col-md-6 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Add Voucher Promo Code</h4>
+                                <h4 class="card-title">Edit Voucher Promo Code</h4>
                             </div>
                             <br>
                             <div class="card-content">
@@ -21,18 +21,18 @@
                                             <?php echo $this->session->flashdata('demo'); ?>
                                         </div>
                                     <?php endif; ?>
-                                    <?= form_open_multipart('promocode/editpromocode/' . $promo['id_promo']); ?>
+                                    <?= form_open_multipart('promocode/editVoucherPromoCode/' . $promo['id_voucher_promo']); ?>
                                     <form class="form form-vertical">
                                         <div class="form-body">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <img class="card-img img-fluid mb-2" src="<?= base_url('images/promo/' . $promo['image_promo']); ?>" alt="Card image">
-                                                    <input type="hidden" name="id_promo" value=<?= $promo['id_promo'] ?>>
+                                                    <img class="card-img img-fluid mb-2" src="<?= base_url('images/promo/' . $promo['image_voucher_promo']); ?>" alt="Card image">
+                                                    <input type="hidden" name="id_voucher_promo" value=<?= $promo['id_voucher_promo'] ?>>
                                                     <fieldset class="form-group">
                                                         <label for="photo">Promo Image</label>
                                                         <div class="custom-file">
-                                                            <input type="file"  class=" custom-file-input dropify" name="image_promo" data-default-file="<?= base_url('images/promo/'. $promo['image_promo']); ?>">
-                                                            <label class="custom-file-label" for="photo"><?= $promo['image_promo']; ?></label>
+                                                            <input type="file"  class=" custom-file-input dropify" name="image_voucher_promo" data-default-file="<?= base_url('images/promo/'. $promo['image_voucher_promo']); ?>">
+                                                            <label class="custom-file-label" for="photo"><?= $promo['image_voucher_promo']; ?></label>
                                                         </div>
                                                     </fieldset>
                                                 </div>
@@ -40,44 +40,51 @@
                                                 <div class="col-12">
                                                     <div class="form-group">
                                                         <label for="title">Judul Promo</label>
-                                                        <input type="text" class="form-control" id="nama_promo" name="nama_promo" placeholder="promo title" value="<?= $promo['nama_promo'] ?>" required>
+                                                        <input type="text" class="form-control" id="nama_voucher_promo" name="nama_voucher_promo" placeholder="promo title" value="<?= $promo['nama_voucher_promo'] ?>" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class=" col-12 ">
+                                                    <div class="form-group">
+                                                        <label for="promocode">Stock Voucher Promo</label>
+                                                        <input type="text" class="form-control" id="isi_voucher_promo" name="isi_voucher_promo" placeholder="enter nominal voucher promo" value="<?= $promo['isi_voucher_promo'] ?>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class=" col-12 form-group">
                                                     <div class="form-group">
-                                                        <label for="promocode">Kode Promo</label>
-                                                        <input type="text" class="form-control" id="kode_promo" name="kode_promo" placeholder="enter promo code" value="<?= $promo['kode_promo'] ?>" required>
+                                                        <label for="promocode">Minimum Transaksi</label>
+                                                        <input type="text" class="form-control" id="minimum_transaksi" name="minimum_transaksi" placeholder="enter promo code" value="<?= $promo['minimum_transaksi'] ?>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12">
                                                     <div class="form-group">
                                                         <label for="gender">Type Promo</label>
-                                                        <select class="select2 form-group" onchange="admSelectCheck(this);" name="type_promo" style="width:100%">
-                                                            <option id="persen" value="persen" <?php if ($promo['type_promo']  == 'persen') { ?>selected<?php } ?>>Percentage</option>
-                                                            <option id="fix" value="fix" <?php if ($promo['type_promo'] == 'fix') { ?>selected<?php } ?>>Fix</option>
+                                                        <select class="select2 form-group" onchange="admSelectCheck(this);" name="type_voucher_promo" style="width:100%">
+                                                            <option id="persen" value="persen" <?php if ($promo['type_voucher_promo']  == 'persen') { ?>selected<?php } ?>>Percentage</option>
+                                                            <option id="fix" value="fix" <?php if ($promo['type_voucher_promo'] == 'fix') { ?>selected<?php } ?>>Fix</option>
                                                         </select>
                                                     </div>
                                                 </div>
 
-                                                <?php if ($promo['type_promo']  == 'persen') { ?>
+                                                <?php if ($promo['type_voucher_promo']  == 'persen') { ?>
                                                     <div id="persencheck" class="col-12 form-group" style="display:block;">
                                                         <label>Jumlah Persentase Promo</label>
-                                                        <input id="persencheckrequired" type="text" class="form-control" id="nominal_promo" name="nominal_promo_persen" value="<?= $promo['nominal_promo']; ?>" placeholder="enter promo amount" required>
+                                                        <input id="persencheckrequired" type="text" class="form-control" id="nominal_voucher_promo" name="nominal_voucher_promo_persen" value="<?= $promo['nominal_voucher_promo']; ?>" placeholder="enter promo amount" required>
                                                     </div>
                                                     <div id="fixcheck" class="col-12 form-group" style="display:none;">
                                                         <label>Jumlah Promo</label>
-                                                        <input id="fixcheckrequired" type="text" pattern="^\d+(\.|\,)\d{2}$" data-type="currency" class="form-control" id="nominal_promo" name="promo_amount" value="<?= number_format($promo['nominal_promo'] , 0, ".", "."); ?>" placeholder="enter promo amount">
+                                                        <input id="fixcheckrequired" type="text" pattern="^\d+(\.|\,)\d{2}$" data-type="currency" class="form-control" id="nominal_voucher_promo" name="promo_amount" value="<?= number_format($promo['nominal_voucher_promo'] , 0, ".", "."); ?>" placeholder="enter promo amount">
                                                     </div>
                                                 <?php } else { ?>
                                                     <div id="persencheck" class="col-12 form-group" style="display:none;">
                                                         <label>Jumlah Persentase Promo</label>
-                                                        <input id="persencheckrequired" type="text" class="form-control" id="nominal_promo" name="nominal_promo_persen" placeholder="enter promo amount" value="<?= $promo['nominal_promo']; ?>" required>
+                                                        <input id="persencheckrequired" type="text" class="form-control" id="nominal_voucher_promo" name="nominal_voucher_promo_persen" placeholder="enter promo amount" value="<?= $promo['nominal_voucher_promo']; ?>" required>
                                                     </div>
                                                     <div id="fixcheck" class="col-12 form-group" style="display:block;">
                                                         <label>Jumlah Promo</label>
-                                                        <input id="fixcheckrequired" type="text" pattern="^\d+(\.|\,)\d{2}$" data-type="currency" class="form-control" id="nominal_promo" name="nominal_promo" value="<?= number_format($promo['nominal_promo'] , 0, ".", "."); ?>" placeholder="enter promo amount">
+                                                        <input id="fixcheckrequired" type="text" pattern="^\d+(\.|\,)\d{2}$" data-type="currency" class="form-control" id="nominal_voucher_promo" name="nominal_voucher_promo" value="<?= number_format($promo['nominal_voucher_promo'] , 0, ".", "."); ?>" placeholder="enter promo amount">
                                                     </div>
                                                 <?php } ?>
 

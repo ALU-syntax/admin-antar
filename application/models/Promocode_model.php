@@ -159,6 +159,11 @@ FROM pelanggan LEFT JOIN saldo ON saldo.id_user = pelanggan.id WHERE pelanggan.i
         return $this->db->get_where('kodepromo', ['id_promo' => $id])->row_array();
     }
 
+    public function getVoucherPromoCodeById($id)
+    {
+        return $this->db->get_where('voucher_promo', ['id_voucher_promo' => $id])->row_array();
+    }
+
     public function hapuspromocodebyId($id)
     {
         $this->db->where('id_promo', $id);
@@ -189,11 +194,11 @@ FROM pelanggan LEFT JOIN saldo ON saldo.id_user = pelanggan.id WHERE pelanggan.i
         return $this->db->get(); 
     }
 
-    public function cekVoucherPromo($code)
+    public function getVoucherPromoByName($name)
     {
         $this->db->select('*');
         $this->db->from('voucher_promo');
-        $this->db->where('kode_voucher_promo',$code);
+        $this->db->where('nama_voucher_promo',$name);
         return $this->db->get(); 
     }
 
