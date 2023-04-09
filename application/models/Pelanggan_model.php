@@ -2024,4 +2024,10 @@ class Pelanggan_model extends CI_model
         }
         
     }
+
+    public function list_voucher_promo(){
+        $this->db->select('*');
+        $this->db->from('voucher_promo');
+        return $this->db->get();
+    }
 }

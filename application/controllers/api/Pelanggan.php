@@ -1820,4 +1820,14 @@ class Pelanggan extends REST_Controller
     public function returnUrl() {
         
     }
+
+    function voucherpromo_get()
+    {
+        $voucher_promo = $this->$Pelanggan_model->list_voucher_promo();
+        $message = array(
+            'data' => $voucher_promo->result()
+        );
+        $this->response($message, 200);
+    }
+
 }
