@@ -185,6 +185,7 @@ class Promocode extends CI_Controller
         $getview['view'] = 'addpromotioncode';
         $this->form_validation->set_rules('nama_voucher_promo', 'nama_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('minimum_transaksi', 'minimum_transaksi', 'trim|prep_for_form');
+        $this->form_validation->set_rules('harga_voucher', 'harga_voucher', 'trim|prep_for_form');
         $this->form_validation->set_rules('isi_voucher_promo', 'isi_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('nominal_voucher_promo', 'nominal_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('type_voucher_promo', 'type_voucher_promo', 'trim|prep_for_form');
@@ -217,6 +218,7 @@ class Promocode extends CI_Controller
                 'nama_voucher_promo'              => html_escape($this->input->post('nama_voucher_promo', TRUE)),
                 'description'              => html_escape($this->input->post('description', TRUE)),
                 'minimum_transaksi'              => html_escape($this->input->post('minimum_transaksi', TRUE)),
+                'harga_voucher'              => html_escape($this->input->post('harga_voucher', TRUE)),
                 'isi_voucher_promo'              => html_escape($this->input->post('isi_voucher_promo', TRUE)),
                 'nominal_voucher_promo'              => $nominal,
                 'type_voucher_promo'              => html_escape($this->input->post('type_voucher_promo', TRUE)),
@@ -316,6 +318,7 @@ class Promocode extends CI_Controller
         $this->form_validation->set_rules('nama_voucher_promo', 'nama_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('description', 'description', 'trim|prep_for_form');
         $this->form_validation->set_rules('minimum_transaksi', 'minimum_transaksi', 'trim|prep_for_form');
+        $this->form_validation->set_rules('harga_voucher', 'harga_voucher', 'trim|prep_for_form');
         $this->form_validation->set_rules('nominal_voucher_promo', 'nominal_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('type_voucher_promo', 'type_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('isi_voucher_promo', 'isi_voucher_promo', 'trim|prep_for_form');
@@ -348,6 +351,7 @@ class Promocode extends CI_Controller
                     'nama_voucher_promo'              => html_escape($this->input->post('nama_voucher_promo', TRUE)),
                     'description'              => html_escape($this->input->post('description', TRUE)),
                     'minimum_transaksi'              => html_escape($this->input->post('minimum_transaksi', TRUE)),
+                    'harga_voucher'              => html_escape($this->input->post('harga_voucher', TRUE)),
                     'isi_voucher_promo'              => html_escape($this->input->post('isi_voucher_promo', TRUE)),
                     'nominal_voucher_promo'              => $nominal,
                     'type_voucher_promo'              => html_escape($this->input->post('type_voucher_promo', TRUE)),
@@ -361,6 +365,7 @@ class Promocode extends CI_Controller
                     'id_voucher_promo'                  => html_escape($this->input->post('id_voucher_promo', TRUE)),
                     'nama_voucher_promo'              => html_escape($this->input->post('nama_voucher_promo', TRUE)),
                     'description'              => html_escape($this->input->post('description', TRUE)),
+                    'harga_voucher'              => html_escape($this->input->post('harga_voucher', TRUE)),
                     'minimum_transaksi'              => html_escape($this->input->post('minimum_transaksi', TRUE)),
                     'isi_voucher_promo'              => html_escape($this->input->post('isi_voucher_promo', TRUE)),
                     'nominal_voucher_promo'              => $nominal,

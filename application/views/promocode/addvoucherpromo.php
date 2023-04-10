@@ -50,6 +50,14 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="col-12 form-group">
+                                                    <div class="form-group">
+                                                        <label for="promocode">Harga Voucher</label>
+                                                        <input type="text" class="form-control" id="harga_voucher" name="harga_voucher" placeholder="masukan harga voucher" required>
+                                                    </div>
+                                                </div>
+
+
                                                 <div class="col-12 ">
                                                     <div class="form-group">
                                                         <label for="promocode">Isi Voucher Promo</label>

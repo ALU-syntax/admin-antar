@@ -51,6 +51,13 @@
                                                     </div>
                                                 </div>
 
+                                                <div class=" col-12 ">
+                                                    <div class="form-group">
+                                                        <label for="promocode">Harga Voucher</label>
+                                                        <input type="text" class="form-control" id="harga_voucher" name="harga_voucher" placeholder="harga voucher promo" value="<?= $promo['harga_voucher'] ?>" required>
+                                                    </div>
+                                                </div>
+
 
                                                 <div class=" col-12 ">
                                                     <div class="form-group">
