@@ -32,6 +32,7 @@
                                 <th>No</th>
                                 <th>Gambar</th>
                                 <th>Nama Voucher</th>
+                                <th>Deskripsi Voucher</th>
                                 <th>Stock Voucher Promo</th>
                                 <th>Minimum Transaksi</th>
                                 <th>Diskon</th>
@@ -51,6 +52,7 @@
                                         <img src="<?= base_url('images/promo/') . $prc['image_voucher_promo']; ?>">
                                     </td>
                                     <td class="product-name"><?= $prc['nama_voucher_promo']; ?></td>
+                                    <td class="product-name"><?= $prc['description']; ?></td>
                                     <td class="product-name"><?= $prc['isi_voucher_promo']; ?></td>
                                     <td class="product-name"><?= $prc['minimum_transaksi']; ?></td>
 

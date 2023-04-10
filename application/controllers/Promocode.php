@@ -190,6 +190,7 @@ class Promocode extends CI_Controller
         $this->form_validation->set_rules('type_voucher_promo', 'type_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('fitur', 'fitur', 'trim|prep_for_form');
         $this->form_validation->set_rules('status', 'status', 'trim|prep_for_form');
+        $this->form_validation->set_rules('description', 'description', 'trim|prep_for_form');
 
         if ($this->form_validation->run() == TRUE) {
             $config['upload_path']     = './images/promo/';
@@ -214,6 +215,7 @@ class Promocode extends CI_Controller
             $data             = [
             'image_voucher_promo'                       => $gambar,
                 'nama_voucher_promo'              => html_escape($this->input->post('nama_voucher_promo', TRUE)),
+                'description'              => html_escape($this->input->post('description', TRUE)),
                 'minimum_transaksi'              => html_escape($this->input->post('minimum_transaksi', TRUE)),
                 'isi_voucher_promo'              => html_escape($this->input->post('isi_voucher_promo', TRUE)),
                 'nominal_voucher_promo'              => $nominal,
@@ -234,7 +236,7 @@ class Promocode extends CI_Controller
                 }else{
                 $this->promocode->addVoucherPromoCode($data);
                 $this->session->set_flashdata('tambah', 'Promotion Slider Has Been Added');
-                redirect('promocode');
+                redirect('promocode/voucher_promo');
             }
             }
         } else {
@@ -312,6 +314,7 @@ class Promocode extends CI_Controller
     {
         $getview['view'] = 'addpromotioncode';
         $this->form_validation->set_rules('nama_voucher_promo', 'nama_voucher_promo', 'trim|prep_for_form');
+        $this->form_validation->set_rules('description', 'description', 'trim|prep_for_form');
         $this->form_validation->set_rules('minimum_transaksi', 'minimum_transaksi', 'trim|prep_for_form');
         $this->form_validation->set_rules('nominal_voucher_promo', 'nominal_voucher_promo', 'trim|prep_for_form');
         $this->form_validation->set_rules('type_voucher_promo', 'type_voucher_promo', 'trim|prep_for_form');
@@ -343,6 +346,7 @@ class Promocode extends CI_Controller
                     'id_voucher_promo'                  => html_escape($this->input->post('id_voucher_promo', TRUE)),
                     'image_voucher_promo'                       => $gambar,
                     'nama_voucher_promo'              => html_escape($this->input->post('nama_voucher_promo', TRUE)),
+                    'description'              => html_escape($this->input->post('description', TRUE)),
                     'minimum_transaksi'              => html_escape($this->input->post('minimum_transaksi', TRUE)),
                     'isi_voucher_promo'              => html_escape($this->input->post('isi_voucher_promo', TRUE)),
                     'nominal_voucher_promo'              => $nominal,
@@ -356,6 +360,7 @@ class Promocode extends CI_Controller
                 $datainsert             = [
                     'id_voucher_promo'                  => html_escape($this->input->post('id_voucher_promo', TRUE)),
                     'nama_voucher_promo'              => html_escape($this->input->post('nama_voucher_promo', TRUE)),
+                    'description'              => html_escape($this->input->post('description', TRUE)),
                     'minimum_transaksi'              => html_escape($this->input->post('minimum_transaksi', TRUE)),
                     'isi_voucher_promo'              => html_escape($this->input->post('isi_voucher_promo', TRUE)),
                     'nominal_voucher_promo'              => $nominal,
@@ -372,13 +377,11 @@ class Promocode extends CI_Controller
                 $this->load->view('promocode/editvoucherpromocode', $data);
                 $this->load->view('includes/footer',$getview);
             } else {
-                // $cekpromo = $this->promocode->cekVoucherPromo($this->input->post('kode_voucher_promo'));
+
                 $cekpromo = $this->promocode->getVoucherPromoByName($this->input->post('nama_voucher_promo'));
                 echo("<script>console.log('PHP: {$cekpromo->row_array()['id_voucher_promo']} ');</script>");
                 echo("<script>console.log('PHP: {$this->input->post('id_voucher_promo')} ');</script>");
 
-                // $this->debug_to_console("debugCekPromo: " + $this->promocode->getVoucherPromoByName($this->input->post('nama_voucher_promo')));
-                // if ($cekpromo->num_rows() > 0 && $cekpromo->row_array()['id_voucher_promo'] != $this->input->post('id_voucher_promo'))
                 if ($cekpromo->num_rows() > 0 && $cekpromo->row_array()['id_voucher_promo'] != $this->input->post('id_voucher_promo')){
                     $this->session->set_flashdata('demo', 'Edit Voucher Promo already exist');
                     $this->load->view('includes/header');
@@ -387,7 +390,7 @@ class Promocode extends CI_Controller
                 }else{
                 $this->promocode->editVoucherPromoCode($datainsert);
                 $this->session->set_flashdata('tambah', 'Promotion code Has Been Changed');
-                redirect('promocode');
+                redirect('promocode/voucher_promo');
             }
             }
         } else {

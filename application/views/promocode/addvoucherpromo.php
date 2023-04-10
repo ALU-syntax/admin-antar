@@ -43,6 +43,13 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="title">Deskripsi Voucher</label>
+                                                        <textarea rows="4" class="form-control" id="description" name="description" placeholder="Deskripsi Promo" required></textarea>
+                                                    </div>
+                                                </div>
+
                                                 <div class="col-12 ">
                                                     <div class="form-group">
                                                         <label for="promocode">Isi Voucher Promo</label>
