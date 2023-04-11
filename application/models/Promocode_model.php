@@ -149,6 +149,8 @@ FROM pelanggan LEFT JOIN saldo ON saldo.id_user = pelanggan.id WHERE pelanggan.i
         return  $this->db->get('kodepromo')->result_array();
     }
 
+    
+
     public function getAllVoucherPromo(){
         $this->db->join('fitur', 'voucher_promo.fitur = fitur.id_fitur', 'left');
         return  $this->db->get('voucher_promo')->result_array();

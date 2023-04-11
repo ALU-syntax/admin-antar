@@ -2028,6 +2028,45 @@ class Pelanggan_model extends CI_model
     public function list_voucher_promo(){
         $this->db->select('*');
         $this->db->from('voucher_promo');
+        $this->db->where('status = 1', NULL, false);
         return $this->db->get();
     }
+
+    public function get_voucher_by_user_voucher($id){
+        $this->db->select('*');
+        $this->db->from('voucher_promo');
+        $this->db->where("id_voucher_promo = '$id'", NULL, false);
+        return $this->db->get();
+    }
+
+    // public function getAllUserVoucherByIdUser($idUser){
+    //     // $query = "SELECT * FROM user_voucher WHERE id_user = '$idUser'";
+    //     return $this->db->get_where('user_voucher', ['id_user' => $idUser])->row_array();
+    // }
+
+    public function getAllUserVoucherByIdUser($id_user)
+    {
+        $this->db->select('*');
+        $this->db->from('user_voucher');
+        $this->db->where('id_user', $id_user);
+        return $this->db->get();
+    }
+
+    public function get_all_voucher_user(){
+        // $this->db->select('voucher_promo.*, user_voucher.quantity');
+        // $this->db->from('voucher_promo');
+        // $this->db->join('user_voucher', 'voucher_promo.id_voucher_promo = user_voucher.id_voucher');
+        // $this->db->where('voucher_promo.status = 1');
+        // return $this->db->get();
+
+        $this->db->select('*');
+        $this->db->from('user_voucher');
+        $this->db->where('id = 5');
+        return $this->db->get();
+
+        // $this->db->select('*');
+        // $this->db->from('user_voucher');
+        // return $this->db->get();
+    }
+
 }

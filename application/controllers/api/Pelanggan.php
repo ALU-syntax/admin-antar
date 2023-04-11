@@ -1830,4 +1830,48 @@ class Pelanggan extends REST_Controller
         $this->response($message, 200);
     }
 
+    function uservoucher_post(){
+        if (!isset($_SERVER['PHP_AUTH_USER'])) {
+            header("WWW-Authenticate: Basic realm=\"Private Area\"");
+            header("HTTP/1.0 401 Unauthorized");
+            return false;
+        }
+
+        $data = file_get_contents("php://input");
+        $decoded_data = json_decode($data);
+
+        $user_voucher = $this->Pelanggan_model->getAllUserVoucherByIdUser($decoded_data->id_user);
+        $voucher = $this->Pelanggan_model->get_voucher_by_user_voucher($user_voucher->row('id_voucher'));
+        if($user_voucher){
+            $message = array(
+                'code' => '200',
+                'message' => 'success',
+                'id' => $user_voucher->row('id'),
+                'id_user' => $user_voucher->row('id_user'),
+                'id_voucher' => $voucher->result(),
+                'quantity' => $user_voucher->row('quantity')
+            );
+            $this->response($message, 200);
+        }else{
+            $message = array(
+                'code' => '200',
+                'message' => 'no voucher found'
+            );
+            $this->response($message, 200);
+        }
+    }
+
+    function alluservoucher_get(){
+        $user_voucher = $this->Pelanggan_model->get_all_voucher_user();
+        $voucher = $this->Pelanggan_model->get_voucher_by_user_voucher($user_voucher->row('id_voucher'));
+        $message = array(
+            // 'data' => $user_voucher->result()
+            'id' => $user_voucher->row('id'),
+            'id_user' => $user_voucher->row('id_user'),
+            'id_voucher' => $voucher->result(),
+            'quantity' => $user_voucher->row('quantity')
+        );
+        $this->response($message, 200);
+    }
+
 }
