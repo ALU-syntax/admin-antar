@@ -2069,4 +2069,10 @@ class Pelanggan_model extends CI_model
         // return $this->db->get();
     }
 
+    public function insertUserVoucher($data)
+    {
+        $verify = $this->db->insert('user_voucher', $data);
+        return true;
+    }
+
 }

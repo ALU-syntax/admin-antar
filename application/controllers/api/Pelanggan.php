@@ -1874,4 +1874,61 @@ class Pelanggan extends REST_Controller
         $this->response($message, 200);
     }
 
+    function buyvoucher_post()
+    {
+        if (!isset($_SERVER['PHP_AUTH_USER'])) {
+            header("WWW-Authenticate: Basic realm=\"Private Area\"");
+            header("HTTP/1.0 401 Unauthorized");
+            return false;
+        }
+
+        $data = file_get_contents("php://input");
+        $decoded_data = json_decode($data);
+
+        $iduser = $decoded_data->id;
+        $bank = $decoded_data->bank;
+        $nama = $decoded_data->nama;
+        $amount = $decoded_data->amount;
+        $card = $decoded_data->card;
+        $email = $decoded_data->email;
+        $phone = $decoded_data->no_telepon;
+        $idvoucher = $decoded_data->id_voucher;
+        $type = $decoded_data->type;
+        $quantityvoucher = $decoded_data->quantity;
+
+        // $getWallet = $this->Pelanggan_model->getwallet($decoded_data->id);
+
+        // $saldolama = $this->Pelanggan_model->saldouser($iduser);
+
+        $dataWalletBeliVoucher = array(
+            'id_user' => $iduser,
+            'rekening' => $card,
+            'bank' => $bank,
+            'nama_pemilik' => $nama,
+            'type' => $type,
+            'jumlah' => $amount,
+            'status' => 1
+        );
+
+        $dataUserVoucher = array(
+            'id_user' => $iduser,
+            'id_voucher' => $idvoucher,
+            'quantity' => $quantityvoucher
+        );
+
+        $check_exist = $this->Pelanggan_model->check_exist($email, $phone);
+
+
+        $this->Pelanggan_model->insertwallet($dataWalletBeliVoucher);
+        $this->Pelanggan_model->insertUserVoucher($dataUserVoucher);
+
+        $saldo = $this->wallet->getsaldo($iduser);
+        $this->wallet->ubahsaldo($iduser, $amount, $saldo);
+        $message = array(
+            'code' => 200,
+            'message' => "Success"
+        );
+        $this->response($message, 200);
+    }
+
 }
